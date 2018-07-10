@@ -3,7 +3,7 @@
 #                 let * match any arbitrary sequence of characters, including the empty sequence
 
 def matches(curr_p, curr_i):
-    if (curr_p == curr_i or curr_p == '+'):
+    if curr_p == curr_i or curr_p == '+':
         return True
     return False
 
@@ -21,7 +21,7 @@ def match(input, pattern):
 
     is_star = True
     for i in range(1, plen):
-        if (pattern[i - 1] == '+'):
+        if pattern[i - 1] == '+':
             result[i][0] = result[i - 1][0]
         else:
             is_star = (pattern[i - 1] == '*' and is_star)
@@ -31,14 +31,14 @@ def match(input, pattern):
         curr_pattern = pattern[i_pattern - 1]
         for i_input in range(1, ilen):
             curr_input = input[i_input - 1]
-            if (curr_pattern == '*'):
+            if curr_pattern == '*':
                 result[i_pattern][i_input] = result[i_pattern - 1][i_input - 1] or \
                                              result[i_pattern - 1][i_input] or \
                                              result[i_pattern][i_input - 1]
-            elif (curr_pattern == '+'):
+            elif curr_pattern == '+':
                 result[i_pattern][i_input] = result[i_pattern - 1][i_input - 1] or \
                                              result[i_pattern - 1][i_input]
-            elif matches(curr_pattern, curr_input):
+            elif curr_pattern == curr_input:
                 result[i_pattern][i_input] = result[i_pattern - 1][i_input - 1]
             else:
                 result[i_pattern][i_input] = False
