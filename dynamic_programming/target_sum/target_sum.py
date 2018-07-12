@@ -23,6 +23,8 @@
 
 
 def helper(arr, n, i, m):
+    if (m.get( (n, i) )):
+        return m.get( (n, i) )
     if (i == len(arr)): return n == 0
 
     result = helper(arr, n - arr[i], i + 1, m) or helper(arr, n + arr[i], i + 1, m)
