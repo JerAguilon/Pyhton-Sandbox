@@ -32,6 +32,9 @@ def helper(arr, n, i, m):
     return result
 
 def solution(arr, n):
+    abs_sum = sum([abs(i) for i in arr])
+    if (abs_sum < abs(n)):
+        return False
     return helper(arr, n, 0, {})
 
 def test():
