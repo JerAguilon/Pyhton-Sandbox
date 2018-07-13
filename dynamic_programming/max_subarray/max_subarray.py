@@ -30,8 +30,6 @@ def solution(arr): # 2-D Array
             for i in range(len(arr)):
                 curr[i] += arr[i][right]
 
-            if left == 1 and right == 3:
-                print(curr)
             top, bottom, curr_total = kadane(curr)
             if (curr_total > best_total):
                 best_top, best_left, best_bottom, best_right, best_total = \
