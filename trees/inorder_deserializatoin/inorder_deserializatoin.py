@@ -24,10 +24,6 @@ class BTree(object):
         self.left = left
         self.right = right
 
-# deficit: 2
-# l + d + 1 = len(arr)
-#
-
 def middle(arr):
     l = len(arr) #d b e a c
     total = 0
