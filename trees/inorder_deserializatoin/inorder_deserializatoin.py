@@ -31,7 +31,27 @@ def middle(arr):
     while total + curr_add <= l:
         total += curr_add
         curr_add *= 2
-    d = l - total # deficit
+    # d: the number more of elements that should be on the
+    # left side of the root than the right side
+    d = l - total
+
+    '''
+    note:
+    left_elements = right_elements + d
+
+    (Move right_elements over)
+    left_elements - right_elements = d
+    (Also)
+    left_elements + right_elements + 1 = len(arr)
+    Thus:
+    2 * left_elements + 1 = d + len(arr)
+
+    Finally:
+    left_elements = (d + len(arr) - 1) / 2
+    left_elements is the index of the middle element since we are
+    0 indexing
+    '''
+
     return int((l + d - 1) / 2)
 
 def helper(arr):
