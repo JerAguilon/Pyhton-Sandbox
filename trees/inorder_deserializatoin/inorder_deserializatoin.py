@@ -33,7 +33,14 @@ def middle(arr):
         curr_add *= 2
     # d: the number more of elements that should be on the
     # left side of the root than the right side
-    d = l - total
+    cnt_bottom = l - total
+    if cnt_bottom < curr_add / 2:
+        amt_left_bottom = cnt_bottom
+        amt_right_bottom = 0
+    else:
+        amt_left_bottom = curr_add / 2
+        amt_right_bottom = cnt_bottom - amt_left_bottom
+    d = amt_left_bottom - amt_right_bottom
 
     '''
     note:
@@ -93,6 +100,8 @@ def test_solution(s):
 
 def test():
     test_solution('dbeac')
+    test_solution('abc')
+    test_solution('dbeacb')
     test_solution('')
     test_solution('a')
     test_solution('abcdefghijklmnop')
