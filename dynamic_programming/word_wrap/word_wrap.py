@@ -48,7 +48,8 @@ def solution(arr, k):
         interval = backtrace[curr]
         left = interval[0]
         right = interval[1]
-
+        # Not efficient to continually append an immutable string, but it
+        # works for now
         result = ' '.join(arr[left:right+1]) + '\n' + result
         curr = left - 1
         if curr == -1:
