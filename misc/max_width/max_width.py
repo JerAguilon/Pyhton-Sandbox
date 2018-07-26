@@ -24,6 +24,7 @@ def solution(arr):
     return best
 
 def test():
+    assert solution([1,2,3]) == 2
     assert solution([34, 8, 10, 3, 2, 80, 30, 33, 1]) == 6
     assert solution([6, 5,4,3,2,1]) == -1
 
