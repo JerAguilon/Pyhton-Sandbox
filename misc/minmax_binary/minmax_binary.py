@@ -4,7 +4,6 @@ def min_binary(arr, target):
     mid = int((low + high) / 2)
 
     while high >= low:
-        print("{} {} {}".format(low, mid, high))
         if mid >= len(arr):
             return len(arr)
         elif arr[mid] < target:
