@@ -1,3 +1,10 @@
+'''
+Change low only if mid is less than low. This
+means that at some point, if the target is in the array,
+then low will find that index. If not, then it will
+end up in some index that's the smallest number
+bigger than the target.
+'''
 def min_binary(arr, target):
     high = len(arr)
     low = 0
@@ -14,6 +21,13 @@ def min_binary(arr, target):
     if arr[low] != target: return low - 1
     return low
 
+'''
+Change high only if the midpoint is greater than high.
+This means that at some point, fi the target is in the
+array, then high will end up at that index. If not,
+then it will end up in some index that's the largest
+number smaller than the target.
+'''
 def max_binary(arr, target):
     high = len(arr) - 1
     low = 0
