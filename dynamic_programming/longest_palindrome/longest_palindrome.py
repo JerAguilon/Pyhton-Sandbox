@@ -19,5 +19,5 @@ def longestPalindrome(s):
                     result_l = left
                     result_r = right
     return s[result_l:result_r + 1]
-  
-assert("bdcddcdboiwjefoiwjeaiojaaa") == "dcddcd"
+
+assert longestPalindrome("bdcddcdboiwjefoiwjeaiojaaa") == "dcddcd"
