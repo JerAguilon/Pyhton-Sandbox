@@ -5,6 +5,7 @@
 # Test cases:
 #  a* matches aaaaa, "" (empty string), a, etc.
 #  ca*b matches caaaaab, cab, cb, etc.
+#  c*a*b*z* matches "", cabz, ccabz, etc.
 
 
 '''
@@ -100,6 +101,7 @@ def test():
     assert matches("a*", "")
     assert matches("ca*b", "caaaaab")
     assert matches("ca*b", "cb")
+    assert matches("fooc*a*b*", "foo")
 
 
 test()
