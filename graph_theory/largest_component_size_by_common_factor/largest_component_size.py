@@ -1,48 +1,59 @@
 # Leetcode #952
 
-import math
-
-class Solution(object):
-    def __has_valid_common_factor(self, a, b):
-        lower = min(a, b)
-        higher = max(a, b)
-
-        if higher % lower == 0:
-            return True
-        for i in range(2, int(math.sqrt(lower) + 1)):
-            if lower % i == 0:
-                j = lower / i
-                if higher % i == 0 or higher % j == 0:
-                    return True
-        return False
-
-    def __get_size(self, value, A):
-        total = 1
-        A.remove(value)
-        curr_iter = iter(A)
-        next_value = next(curr_iter, None)
-        while next_value:
-            if self.__has_valid_common_factor(value, next_value):
-                total += self.__get_size(next_value, A)
-                curr_iter = iter(A)
-            next_value = next(curr_iter, None)
-        print("RETURNING" + str(total))
-        return total
-
+from math import floor
+from collections import defaultdict
+class Solution:
     def largestComponentSize(self, A):
         """
         :type A: List[int]
         :rtype: int
         """
-        largest = 0
-        A = set(A)
-        while len(A) > 0:
-            next_value = next(iter(A))
-            if next_value == 1:
-                A.remove(next_value)
-            else:
-                largest = max(largest, self.__get_size(next_value, A))
-        return largest
+        if not A:
+            return 0
+        def find(n):
+            if p[n]!=n:
+                p[n], _ = find(p[n])
+            return p[n], c[p[n]]
+        def union(x, y):
+            px, cx = find(x)
+            py, cy = find(y)
+            if px != py:
+                c[px] = cx + cy
+            p[py] = px
+        def factors(dicts, n, idx):
+            onlyme = True
+            for i in range(2, int(floor(n ** 0.5) + 1)):
+                if n %i ==0:
+                    for k in [i, n//i]:
+                        prime = True
+                        for j in range(2, int(floor(k ** 0.5) + 1)):
+                            if k%j == 0:
+                                prime = False
+                                break
+                        if prime == True:
+                            dicts[k].add(idx)
+                            onlyme = False
+            if onlyme:
+                dicts[n].add(idx)
+
+        # myset = [None for _ in A]
+        # for i, n in enumerate(A):
+        #     myset[i] = factors(n)
+        # sets = set.union(*myset)
+        dicts = defaultdict(set)
+        for i, n in enumerate(A):
+            factors(dicts,n, i)
+        p = [i for i in range(len(A))]
+        c = [1 for i in range(len(A))]
+
+        for key, val in dicts.items():
+            if len(val)>1:
+                pre = val.pop()
+                while (val):
+                    cur = val.pop()
+                    union(pre, cur)
+                    pre = cur
+        return max(c)
 
 def assert_solution(A, expected):
     copy = list(A)
@@ -54,5 +65,6 @@ def test():
     assert_solution([4, 6, 15, 35], 4)
     assert_solution([20, 50, 9, 63], 2)
     assert_solution([2,3,6,7,4,12,21,39], 8)
+    assert_solution([1,2,3,4,5,6,7,8,9,10,11,12,13,14], 11)
 
 test()
