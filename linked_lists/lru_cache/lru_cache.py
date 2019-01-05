@@ -14,26 +14,11 @@ class LinkedList(object):
         self.tail = None
         self.size = 0
 
-    def push_back(self, new_node: Node):
-        if self.size == 0:
-            self.head = new_node
-            self.tail = new_node
-        else:
-            self.tail.right = new_node
-            new_node.left = self.tail
-            self.tail = new_node
-
-        self.head.left = self.tail
-        self.tail.right = self.head
-
-        self.size += 1
-
     def push_front(self, new_node: Node):
         if self.size == 0:
             self.head = new_node
             self.tail = new_node
         else:
-            print("FOOOOOOOBAR")
             self.head.left = new_node
             new_node.right = self.head
             self.head = new_node
@@ -132,27 +117,16 @@ class LRUCache(object):
         :type value: int
         :rtype: void
         """
+        if key in self.cache:
+            self.cache[key].value = value
+            self.ll.move_front(self.cache[key])
+            return
+
         new_node = Node(key, value)
         self.cache[key] = new_node
         self.ll.push_front(new_node)
 
         if len(self.cache) > self.capacity:
             node_to_remove = self.ll.pop_back()
+
             del self.cache[node_to_remove.key]
-
-
-def test():
-    lru = LRUCache(2)
-    lru.put(1, 1)
-    lru.put(2, 2)
-    print(lru.get(1))
-    lru.put(3, 3)
-    print(lru.cache)
-    print(lru.ll)
-
-test()
-
-# Your LRUCache object will be instantiated and called as such:
-# obj = LRUCache(capacity)
-# param_1 = obj.get(key)
-# obj.put(key,value)
